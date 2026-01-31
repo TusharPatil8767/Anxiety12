@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmSpace - Anxiety Relief Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #7bdff2;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --card-bg: #2d3047;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .emergency-section {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .emergency-section h2 {
+            color: var(--danger);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tool-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        .tool-card h3 i {
+            font-size: 1.5rem;
+        }
+        
+        .breathing-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            transition: transform 4s ease-in-out;
+        }
+        
+        .breathing-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(74, 111, 165, 0.1);
+        }
+        
+        .grounding-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .grounding-list li {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .grounding-list li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .grounding-list li i {
+            color: var(--accent);
+        }
+        
+        .affirmation {
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 20px;
+            background: rgba(123, 223, 242, 0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .timer {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            width: 0%;
+            transition: width 1s linear;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .breathing-circle {
+                width: 150px;
+                height: 150px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heart"></i> CalmSpace</h1>
+            <p class="tagline">A toolkit to help you through anxiety and panic attacks. Remember, this too shall pass.</p>
+        </header>
+        
+        <section class="emergency-section">
+            <h2><i class="fas fa-first-aid"></i> If you're in crisis</h2>
+            <p>Take a slow, deep breath. You are safe. This feeling is temporary. Try one of the tools below to help ground yourself in the present moment.</p>
+        </section>
+        
+        <div class="tools-grid">
+            <!-- Breathing Exercise Tool -->
+            <div class="tool-card">
+                <h3><i class="fas fa-wind"></i> Breathing Exercise</h3>
+                <p>Follow the guided breathing exercise to calm your nervous system. Inhale slowly through your nose, exhale slowly through your mouth.</p>
+                
+                <div class="breathing-container">
+                    <div class="breathing-circle" id="breathingCircle">
+                        <span id="breathText">Breathe In</span>
+                    </div>
+                    
+                    <div class="timer" id="breathTimer">4</div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="breathProgress"></div>
+                    </div>
+                    
+                    <div class="breathing-controls">
+                        <button id="startBreathing">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button id="pauseBreathing" class="btn-secondary">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button id="resetBreathing" class="btn-secondary">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grounding Technique Tool -->
+            <div class="tool-card">
+                <h3><i class="fas fa-mountain"></i> 5-4-3-2-1 Grounding</h3>
+                <p>Use your senses to ground yourself in the present moment. Identify:</p>
+                
+                <ul class="grounding-list">
+                    <li><i class="fas fa-eye"></i> <span id="item1">5 things you can see</span></li>
+                    <li><i class="fas fa-hand-paper"></i> <span id="item2">4 things you can touch</span></li>
+                    <li><i class="fas fa-ear-listen"></i> <span id="item3">3 things you can hear</span></li>
+                    <li><i class="fas fa-nose"></i> <span id="item4">2 things you can smell</span></li>
+                    <li><i class="fas fa-mouth"></i> <span id="item5">1 thing you can taste</span></li>
+                </ul>
+                
+                <button id="resetGrounding">
+                    <i class="fas fa-redo"></i> Reset Grounding Exercise
+                </button>
+            </div>
+            
+            <!-- Positive Affirmations Tool -->
+            <div class="tool-card">
+                <h3><i class="fas fa-comment-heart"></i> Positive Affirmations</h3>
+                <p>Read and repeat these calming statements. Click for a new affirmation.</p>
+                
+                <div class="affirmation" id="affirmation">
+                    "I am safe in this moment. My feelings are valid but temporary."
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="newAffirmation">
+                        <i class="fas fa-sync-alt"></i> New Affirmation
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panic Attack Timer Tool -->
+            <div class="tool-card">
+                <h3><i class="fas fa-clock"></i> Panic Attack Timer</h3>
+                <p>Most panic attacks peak within 10 minutes. Track your experience and remind yourself it will pass.</p>
+                
+                <div class="timer" id="panicTimer">00:00</div>
+                
+                <div style="text-align: center;">
+                    <button id="startTimer">
+                        <i class="fas fa-play"></i> Start Timer
+                    </button>
+                    <button id="stopTimer" class="btn-secondary">
+                        <i class="fas fa-stop"></i> Stop Timer
+                    </button>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                    <i class="fas fa-lightbulb"></i> Remember: Panic attacks are temporary. Your body is having a stress response, but you are not in danger.
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>CalmSpace is not a substitute for professional mental health care. If you're struggling, please reach out to a mental health professional.</p>
+            <p>Emergency Resources: National Suicide Prevention Lifeline: 988 | Crisis Text Line: Text HOME to 741741</p>
+            <p style="margin-top: 10px;">&copy; 2023 CalmSpace - Anxiety Relief Tool</p>
+        </footer>
+    </div>
+
+    <script>
+        // Breathing Exercise
+        const breathingCircle = document.getElementById('breathingCircle');
+        const breathText = document.getElementById('breathText');
+        const breathTimer = document.getElementById('breathTimer');
+        const breathProgress = document.getElementById('breathProgress');
+        const startBreathingBtn = document.getElementById('startBreathing');
+        const pauseBreathingBtn = document.getElementById('pauseBreathing');
+        const resetBreathingBtn = document.getElementById('resetBreathing');
+        
+        let breathingInterval;
+        let isBreathing = false;
+        let breathPhase = 'inhale'; // inhale, hold, exhale
+        let breathCount = 4; // seconds for inhale
+        let holdCount = 4; // seconds for hold
+        let exhaleCount = 6; // seconds for exhale
+        
+        function startBreathing() {
+            if (isBreathing) return;
+            
+            isBreathing = true;
+            startBreathingBtn.disabled = true;
+            pauseBreathingBtn.disabled = false;
+            
+            breathingInterval = setInterval(updateBreathing, 1000);
+        }
+        
+        function pauseBreathing() {
+            clearInterval(breathingInterval);
+            isBreathing = false;
+            startBreathingBtn.disabled = false;
+            pauseBreathingBtn.disabled = true;
+        }
+        
+        function resetBreathing() {
+            clearInterval(breathingInterval);
+            isBreathing = false;
+            breathPhase = 'inhale';
+            breathCount = 4;
+            updateBreathingDisplay();
+            startBreathingBtn.disabled = false;
+            pauseBreathingBtn.disabled = true;
+            breathProgress.style.width = '0%';
+        }
+        
+        function updateBreathing() {
+            breathCount--;
+            
+            if (breathCount <= 0) {
+                if (breathPhase === 'inhale') {
+                    breathPhase = 'hold';
+                    breathCount = holdCount;
+                } else if (breathPhase === 'hold') {
+                    breathPhase = 'exhale';
+                    breathCount = exhaleCount;
+                } else if (breathPhase === 'exhale') {
+                    breathPhase = 'inhale';
+                    breathCount = 4;
+                }
+            }
+            
+            updateBreathingDisplay();
+        }
+        
+        function updateBreathingDisplay() {
+            let totalTime, currentTime, progress;
+            
+            if (breathPhase === 'inhale') {
+                breathText.textContent = 'Breathe In';
+                breathingCircle.style.transform = 'scale(1.2)';
+                totalTime = 4;
+                currentTime = totalTime - breathCount;
+                progress = (currentTime / totalTime) * 100;
+            } else if (breathPhase === 'hold') {
+                breathText.textContent = 'Hold';
+                breathingCircle.style.transform = 'scale(1.2)';
+                totalTime = holdCount;
+                currentTime = totalTime - breathCount;
+                progress = (currentTime / totalTime) * 100;
+            } else if (breathPhase === 'exhale') {
+                breathText.textContent = 'Breathe Out';
+                breathingCircle.style.transform = 'scale(1)';
+                totalTime = exhaleCount;
+                currentTime = totalTime - breathCount;
+                progress = (currentTime / totalTime) * 100;
+            }
+            
+            breathTimer.textContent = breathCount;
+            breathProgress.style.width = `${progress}%`;
+        }
+        
+        startBreathingBtn.addEventListener('click', startBreathing);
+        pauseBreathingBtn.addEventListener('click', pauseBreathing);
+        resetBreathingBtn.addEventListener('click', resetBreathing);
+        
+        // Grounding Exercise
+        const groundingItems = [
+            ["5 things you can see", "4 things you can touch", "3 things you can hear", "2 things you can smell", "1 thing you can taste"],
+            ["Look for 5 different colors", "Notice 4 different textures", "Listen for 3 distinct sounds", "Identify 2 scents around you", "Focus on 1 taste in your mouth"],
+            ["Find 5 objects in the room", "Touch 4 surfaces near you", "Hear 3 separate noises", "Smell 2 different things", "Pay attention to 1 flavor"]
+        ];
+        
+        let currentGroundingSet = 0;
+        const groundingSpans = [
+            document.getElementById('item1'),
+            document.getElementById('item2'),
+            document.getElementById('item3'),
+            document.getElementById('item4'),
+            document.getElementById('item5')
+        ];
+        
+        function updateGrounding() {
+            for (let i = 0; i < 5; i++) {
+                groundingSpans[i].textContent = groundingItems[currentGroundingSet][i];
+            }
+            
+            currentGroundingSet = (currentGroundingSet + 1) % groundingItems.length;
+        }
+        
+        document.getElementById('resetGrounding').addEventListener('click', updateGrounding);
+        
+        // Positive Affirmations
+        const affirmations = [
+            "I am safe in this moment. My feelings are valid but temporary.",
+            "This feeling will pass. I have gotten through difficult moments before.",
+            "I am stronger than my anxiety. I am capable of handling this.",
+            "I am not in danger. My body is having a stress response, but I am safe.",
+            "I can ride this wave of anxiety. It will crest and then subside.",
+            "I am grounded in the present moment. The past is over, the future hasn't happened.",
+            "I allow myself to feel this without judgment. Feelings are messengers, not masters.",
+            "I am breathing slowly and deeply. With each breath, I become calmer.",
+            "I have the tools to help myself through this. I am resilient.",
+            "I am not alone. Many people experience this, and it's okay to ask for help."
+        ];
+        
+        const affirmationElement = document.getElementById('affirmation');
+        document.getElementById('newAffirmation').addEventListener('click', function() {
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            affirmationElement.textContent = `"${affirmations[randomIndex]}"`;
+        });
+        
+        // Panic Attack Timer
+        const panicTimer = document.getElementById('panicTimer');
+        const startTimerBtn = document.getElementById('startTimer');
+        const stopTimerBtn = document.getElementById('stopTimer');
+        
+        let timerInterval;
+        let timerSeconds = 0;
+        let timerRunning = false;
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function startTimer() {
+            if (timerRunning) return;
+            
+            timerRunning = true;
+            startTimerBtn.disabled = true;
+            stopTimerBtn.disabled = false;
+            
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                panicTimer.textContent = formatTime(timerSeconds);
+                
+                // Display encouraging messages at certain intervals
+                if (timerSeconds === 60) {
+                    showMessage("You've made it through one minute. The peak is likely passing.");
+                } else if (timerSeconds === 120) {
+                    showMessage("Two minutes down. Your body is beginning to calm.");
+                } else if (timerSeconds === 300) {
+                    showMessage("Five minutes. Most panic attacks peak within 10 minutes.");
+                } else if (timerSeconds === 600) {
+                    showMessage("Ten minutes. Remember, this feeling is temporary.");
+                }
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            startTimerBtn.disabled = false;
+            stopTimerBtn.disabled = true;
+        }
+        
+        function showMessage(message) {
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--primary);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 1000;
+                max-width: 300px;
+                animation: fadeIn 0.3s, fadeOut 0.3s 4.7s;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        startTimerBtn.addEventListener('click', startTimer);
+        stopTimerBtn.addEventListener('click', stopTimer);
+        
+        // Add CSS for fade animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
